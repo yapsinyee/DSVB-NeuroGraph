@@ -95,6 +95,7 @@ val_acc_history, test_acc_history, test_loss_history = [],[],[]
 seeds = [123,124]
 for index in range(args.runs):
     start = time.time()
+    print(seeds)
     fix_seed(seeds[index])
     gnn = eval(args.model)
     model = ResidualGNNs(args,train_dataset,args.hidden,args.hidden_mlp,args.num_layers,gnn).to(args.device) ## apply GNN*
@@ -109,7 +110,7 @@ for index in range(args.runs):
         val_acc = test(val_loader)
         test_acc = test(test_loader)
         # if epoch%10==0:
-        print("epoch: {}, loss: {}, val_acc:{}, test_acc:{}".format(epoch, np.round(loss.item(),6), np.round(val_acc,2),np.round(test_acc,2)))
+        print("epoch: {}, loss: {}, val_acc:{}, test_acc:{}".format(epoch+1, np.round(loss.item(),6), np.round(val_acc,2),np.round(test_acc,2)))
         val_acc_history.append(val_acc)
         if val_acc > best_val_acc:
             best_val_acc = val_acc
